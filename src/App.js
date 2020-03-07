@@ -5,9 +5,13 @@ import parse from "html-react-parser";
 // Async functions
 import { fetchShow } from './api/fetchShow';
 
+// Component imports
 import Episodes from "./components/Episodes";
+
+// Styles
 import "./styles.css";
 
+// The main App component
 export default function App() {
   const [show, setShow] = useState(null);
   const [seasons, setSeasons] = useState({});
