@@ -2,7 +2,7 @@
 import React from "react";
 
 // Jest and RTL imports
-import { fireEvent, render, cleanup } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import '@testing-library/jest-dom/extend-expect';
 
 // Component imports
