@@ -2,7 +2,7 @@
 import React from "react";
 
 // Jest and RTL imports
-import { render, cleanup, wait } from "@testing-library/react";
+import { render, cleanup, wait, getByTestId } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 
 // Component imports
@@ -19,7 +19,7 @@ describe("When the App component initially mounts", () => {
     const res = {
       data: {
         name: "Stranger Things Mock",
-        image : {
+        image: {
           original: "http://www.tvmaze.com/shows/2993/stranger-things"
         },
         summary: "<p>Mock Summary</p>",
@@ -37,23 +37,25 @@ describe("When the App component initially mounts", () => {
               number: 1,
               name: "Chapter One: The Mock Episode",
               summary: "<p>Mock Episode Summary</p>",
-              runtime: 60,
+              runtime: 60
             }
           ]
         }
       }
     };
-    mockFetchShow.mockResolvedValueOnce(res);
+    // mockFetchShow.mockResolvedValueOnce(res);
+    mockFetchShow.mockImplementation(() => Promise.resolve(res))
 
     // Test that the mock function ran at least once
-    
+
     // Test that the mock API call caused the app to render with fake data
-    const { getByText, queryAllByTestId } = render(<App />);
+    const { getByText, getByTestId, queryAllByTestId } = render(<App />);
     getByText(/Fetching data.../i);
     await wait(() => expect(mockFetchShow).toHaveBeenCalledTimes(1));
     await wait(() => expect(mockFetchShow).not.toHaveBeenCalledTimes(0));
+    expect(mockFetchShow()).resolves.toBe(res);
+    // getByTestId(/episode/i);
     // await wait(() => expect(queryAllByTestId(/episode/i)).toHaveLength(1));
-    expect(mockFetchShow).toHaveReturnedWith(res)
   });
   cleanup();
 });

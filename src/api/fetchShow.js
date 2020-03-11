@@ -2,7 +2,7 @@ import axios from "axios";
 
 /**
  * @function fetchShow: Fetch the show data from the TVMaze API
- * @param none
+ * @param: none
  * @returns none
  */
 export const fetchShow = () => {
