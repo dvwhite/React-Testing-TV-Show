@@ -14,7 +14,7 @@ jest.mock("./api/fetchShow.js");
 
 // Testing the component
 describe("When the App component initially mounts", () => {
-  test("renders images from the API", async () => {
+  test("it works with the API", async () => {
     // Rerender the component with an array of episodes from the simulated API call
     const res = {
       data: {
@@ -22,7 +22,7 @@ describe("When the App component initially mounts", () => {
         image : {
           original: "http://www.tvmaze.com/shows/2993/stranger-things"
         },
-        summary: "<p>A love letter to the '80s classics that captivated a generation, <b>Stranger Things</b> is set in 1983 Indiana, where a young boy vanishes into thin air. As friends, family and local police search for answers, they are drawn into an extraordinary mystery involving top-secret government experiments, terrifying supernatural forces and one very strange little girl.</p>",
+        summary: "<p>Mock Summary</p>",
         _embedded: {
           episodes: [
             {
@@ -36,7 +36,7 @@ describe("When the App component initially mounts", () => {
               season: 1,
               number: 1,
               name: "Chapter One: The Mock Episode",
-              summary: "<p>Mock Summary</p>",
+              summary: "<p>Mock Episode Summary</p>",
               runtime: 60,
             }
           ]
@@ -48,9 +48,12 @@ describe("When the App component initially mounts", () => {
     // Test that the mock function ran at least once
     
     // Test that the mock API call caused the app to render with fake data
-    const { queryAllByTestId } = render(<App />);
+    const { getByText, queryAllByTestId } = render(<App />);
+    getByText(/Fetching data.../i);
     await wait(() => expect(mockFetchShow).toHaveBeenCalledTimes(1));
     await wait(() => expect(mockFetchShow).not.toHaveBeenCalledTimes(0));
+    // await wait(() => expect(queryAllByTestId(/episode/i)).toHaveLength(1));
+    expect(mockFetchShow).toHaveReturnedWith(res)
   });
   cleanup();
 });
