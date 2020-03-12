@@ -8,7 +8,7 @@ const mockDropdown = (value, onChange) => {
     { value: "season-2", label: "Season 2" },
     { value: "season-3", label: "Season 3" }
   ];
-
+  
   // Helper functions
   const handleChange = event => {
     const option = options.find(

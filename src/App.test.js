@@ -51,8 +51,8 @@ describe("When the App component initially mounts", () => {
     // Test that the mock API call caused the app to render with fake data
     const { getByText } = render(<App />);
     getByText(/Fetching data.../i);
-    await wait(() => expect(mockFetchShow).toHaveBeenCalledTimes(1));
-    await wait(() => expect(mockFetchShow).not.toHaveBeenCalledTimes(0));
+    expect(mockFetchShow).toHaveBeenCalledTimes(1);
+    expect(mockFetchShow).not.toHaveBeenCalledTimes(0);
     expect(mockFetchShow()).resolves.toBe(res);
   });
   cleanup();
