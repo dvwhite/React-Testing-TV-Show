@@ -21,15 +21,46 @@ export default function App() {
   const [selectedSeason, setSelectedSeason] = useState("");
   const episodes = seasons[selectedSeason] || [];
 
+  const dummySeasons = {
+    "Season 1": [
+      {
+        id: 553946,
+        image: {
+          medium:
+            "http://static.tvmaze.com/uploads/images/medium_landscape/67/168918.jpg"
+        },
+        season: 1,
+        number: 1,
+        name: "Mock Chapter One",
+        summary: "<p>Summary</p>",
+        runtime: 60
+      },
+      {
+        id: 553947,
+        image: {
+          medium:
+            "http://static.tvmaze.com/uploads/images/medium_landscape/67/168918.jpg"
+        },
+        season: 1,
+        number: 2,
+        name: "Mock Chapter Two",
+        summary: "<p>Summary</p>",
+        runtime: 60
+      }
+    ]
+  }
+
   useEffect(() => {
     fetchShow()
       .then(res => {
+        console.log("App | Res:", res)
         setShow(res.data);
         setSeasons(formatSeasons(res.data._embedded.episodes));
       })
   }, []);
 
   const handleSelect = e => {
+    console.log("The selected season is:", e.value)
     setSelectedSeason(e.value);
   };
 
